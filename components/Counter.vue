@@ -4,7 +4,7 @@
       <b-row>Point</b-row>
       <b-row>
         <b-col sm="3">
-          <b-button block variant="info">{{ player1 }}</b-button>
+          <b-button block variant="info" disabled>{{ player1 }}</b-button>
         </b-col>
         <b-col sm="3">
           <b-button block variant="success">{{ player2 }}</b-button>
@@ -40,7 +40,15 @@
           <b-button block variant="danger">Double Fault</b-button>
         </b-col>
       </b-row>
-      <b-row><b-button variant="danger">UNDO</b-button></b-row>
+      <b-row>-</b-row>
+      <b-row>
+        <b-col>
+          <b-button block variant="success">Add Point</b-button>
+        </b-col>
+        <b-col>
+          <b-button variant="danger">UNDO</b-button>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -53,7 +61,7 @@ export default {
       points: [],
       button: {
         pointWinPlayer: 0,
-        serviceIn: 1,
+        serviceIn: 0,
         PointWon: 0
       }
     }
