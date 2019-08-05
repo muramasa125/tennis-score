@@ -31,8 +31,7 @@ export default {
         { name: 'Set3', a: 7, b: 5 }
       ],
       point: { a: 40, b: 15 },
-      status: { a: 'Ad', b: '' }
-      
+      status: { a: 'Ad', b: '' }      
     }
   }
 }
