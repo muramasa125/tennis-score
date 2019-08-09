@@ -4,7 +4,7 @@
       <b-row>Point</b-row>
       <b-row>
         <b-col sm="3">
-          <b-button block variant="info" disabled>{{ player1 }}</b-button>
+          <b-button block variant="info">{{ player1 }}</b-button>
         </b-col>
         <b-col sm="3">
           <b-button block variant="success">{{ player2 }}</b-button>
@@ -22,7 +22,7 @@
       <b-row>Point Won</b-row>
       <b-row>
         <b-col sm="2">
-          <b-button block variant="info">Service</b-button>
+          <b-button block variant="info">Service Ace</b-button>
         </b-col>
         <b-col sm="2">
           <b-button block variant="success">ForeHand Stroke</b-button>

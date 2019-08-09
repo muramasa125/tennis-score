@@ -1,31 +1,37 @@
 <template>
   <div>
     <b-button v-b-modal.gameSetting>game setting</b-button>
-    <b-modal id="gameSetting" title="Game Setting">
+    <b-modal ref="modal" id="gameSetting" title="Game Setting" @ok="handleOk">
       <b-container>
-        <b-row>
-          <b-col sm="2">Set</b-col>
-          <b-col sm="4">
-            <b-form-select v-model="set" :options="setOptions"></b-form-select>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col sm="2">Geme</b-col>
-          <b-col sm="4">
-            <b-form-select v-model="game" :options="gameOptions"></b-form-select>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col sm="2">Advantage</b-col>
-          <b-col sm="4">
-            <b-form-select v-model="ad" :options="adOptions"></b-form-select>
-          </b-col>
-        </b-row>
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-row>
+            <b-col sm="3">Set</b-col>
+            <b-col sm="4">
+              <b-form-select v-model="set" :options="setOptions"></b-form-select>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="3">Game</b-col>
+            <b-col sm="4">
+              <b-form-select v-model="game" :options="gameOptions"></b-form-select>
+            </b-col>
+            <b-col sm="4">
+              <b-form-select v-model="gameCount" :options="gameCountOptions"></b-form-select>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="3">Advantage</b-col>
+            <b-col sm="4">
+              <b-form-select v-model="ad" :options="adOptions"></b-form-select>
+            </b-col>
+          </b-row>
+        </form>
       </b-container>
     </b-modal>
   </div>  
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   data: function () {
     return {
@@ -41,12 +47,30 @@ export default {
         { value: 4, text: '4' },
         { value: 6, text: '6' }
       ],
+      gameCount: 1,
+      gameCountOptions: [
+        { value: 1, text: 'Match' }
+      ],
       ad: 2,
       adOptions: [
         { value: 2, text: 'Full' },
         { value: 1, text: 'Semi' },
         { value: 0, text: 'None' }
       ],
+    }
+  },
+  methods: {
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault()
+      // Trigger submit handler
+      this.handleSubmit()
+    },
+    ...mapActions([
+      'gameSetting/setGameSetting'
+    ]),
+    handleSubmit() {
+      this['gameSetting/setGameSetting'](this.set, this.game, this.ad)
     }
   }
 }

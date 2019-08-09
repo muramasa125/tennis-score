@@ -13,7 +13,7 @@ export const mutations = {
   }
 }
 export const actions = {
-  setGameSetting({ commit }, { set, game, ad}) {
+  setGameSetting({ commit }, { set, game, ad }) {
     commit('setGameSetting', set, game, ad)
   }
 }
