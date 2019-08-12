@@ -61,17 +61,11 @@ export default {
   },
   methods: {
     handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault()
-      // Trigger submit handler
-      this.handleSubmit()
+      this['gameSetting/setGameSetting']({'set': this.set, 'game': this.game, 'ad': this.ad})
     },
     ...mapActions([
       'gameSetting/setGameSetting'
-    ]),
-    handleSubmit() {
-      this['gameSetting/setGameSetting'](this.set, this.game, this.ad)
-    }
+    ])
   }
 }
 </script>
