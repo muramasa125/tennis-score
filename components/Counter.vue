@@ -43,7 +43,7 @@
       <b-row>-</b-row>
       <b-row>
         <b-col>
-          <b-button block variant="success">Add Point</b-button>
+          <b-button block variant="success" v-on:click="addPoint()">Add Point</b-button>
         </b-col>
         <b-col>
           <b-button variant="danger">UNDO</b-button>
@@ -53,16 +53,27 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState('game', ['player1', 'player2'])
   },
   data: function () {
     return {
-      pointWinPlayer: 0,
+      pointWon: 0,
       serviceIn: 0,
-      PointWon: 0
+      pointWonDetail: 0
+    }
+  },
+  methods: {
+    ...mapActions([
+      'game/pointCount',
+    ]),
+    addPoint: function () {
+      this['game/pointCount']({'pointWon': this.pointWon, 'serviceIn': this.serviceIn, 'pointWonDetail': this.pointWonDetail})
+      this.pointWon = 0
+      this.serviceIn = 0
+      this.pointWonDetail = 0
     }
   }
 }

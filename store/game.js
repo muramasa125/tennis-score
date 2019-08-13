@@ -4,7 +4,8 @@ export const state = {
   set: null,
   game: null,
   ad: null,
-  points: []
+  points: [],
+  pointCounter: 0
 }
 export const mutations = {
   setPlayer(state, {player1, player2}) {
@@ -17,8 +18,10 @@ export const mutations = {
     state.ad = ad
   },
   pointCount(state, point) {
+    point['id'] = state.pointCounter
     state.points.push(point)
-  }
+    state.pointCounter ++
+  },
 }
 export const actions = {
   setPlayer({ commit }, { player1, player2 }) {
