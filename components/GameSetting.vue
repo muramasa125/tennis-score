@@ -5,6 +5,18 @@
       <b-container>
         <form ref="form" @submit.stop.prevent="handleSubmit">
           <b-row>
+            <b-col sm="3">Player1</b-col>
+            <b-col sm="7">
+              <b-form-input v-model="player1" placeholder="Enter Server Name"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="3">Player2</b-col>
+            <b-col sm="7">
+              <b-form-input v-model="player2" placeholder="Enter Reciever Name"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row>
             <b-col sm="3">Set</b-col>
             <b-col sm="4">
               <b-form-select v-model="set" :options="setOptions"></b-form-select>
@@ -35,6 +47,8 @@ import { mapActions } from 'vuex'
 export default {
   data: function () {
     return {
+      player1: null,
+      player2: null,
       set: 1,
       setOptions: [
         { value: 1, text: '1' },
@@ -62,9 +76,11 @@ export default {
   methods: {
     handleOk(bvModalEvt) {
       this['game/setGameSetting']({'set': this.set, 'game': this.game, 'ad': this.ad})
+      this['game/setPlayer']({'player1': this.player1, 'player2': this.player2})
     },
     ...mapActions([
-      'game/setGameSetting'
+      'game/setGameSetting',
+      'game/setPlayer'
     ])
   }
 }

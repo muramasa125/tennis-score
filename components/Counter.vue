@@ -53,17 +53,16 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState('game', ['player1', 'player2'])
+  },
   data: function () {
     return {
-      player1: 'aaa',
-      player2: 'bbb',
-      points: [],
-      button: {
-        pointWinPlayer: 0,
-        serviceIn: 0,
-        PointWon: 0
-      }
+      pointWinPlayer: 0,
+      serviceIn: 0,
+      PointWon: 0
     }
   }
 }

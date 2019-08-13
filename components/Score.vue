@@ -2,6 +2,11 @@
   <div>
     <b-container>
       <b-row>
+        <b-col cols="3" class="float-left">
+          <div>Player</div>
+          <div>{{ player1 }}</div>
+          <div>{{ player2 }}</div>
+        </b-col>
         <b-col cols="2" class="float-left" v-for="set in sets" :key="set.name">
           <div>{{ set.name }}</div>
           <div>{{ set.a }}</div>
@@ -22,7 +27,11 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState('game', ['player1', 'player2'])
+  },
   data: function () {
     return {
       sets: [
