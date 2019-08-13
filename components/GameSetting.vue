@@ -61,10 +61,10 @@ export default {
   },
   methods: {
     handleOk(bvModalEvt) {
-      this['gameSetting/setGameSetting']({'set': this.set, 'game': this.game, 'ad': this.ad})
+      this['game/setGameSetting']({'set': this.set, 'game': this.game, 'ad': this.ad})
     },
     ...mapActions([
-      'gameSetting/setGameSetting'
+      'game/setGameSetting'
     ])
   }
 }
