@@ -1,13 +1,13 @@
 <template>
   <div>
     <b-container>
-      <b-row>Point</b-row>
+      <b-row>Point Won</b-row>
       <b-row>
         <b-col sm="3">
-          <b-button block variant="info">{{ player1 }}</b-button>
+          <b-button block variant="info" @click="setPointWon(1)" :disabled="pointWonPlayer1">{{ player1 }}</b-button>
         </b-col>
         <b-col sm="3">
-          <b-button block variant="success">{{ player2 }}</b-button>
+          <b-button block variant="success" @click="setPointWon(2)" :disabled="pointWonPlayer2">{{ player2 }}</b-button>
         </b-col>
       </b-row>
       <b-row>Service In</b-row>
@@ -19,7 +19,7 @@
           <b-button block variant="success">Second Service In</b-button>
         </b-col>
       </b-row>
-      <b-row>Point Won</b-row>
+      <b-row>Point Won Detail</b-row>
       <b-row>
         <b-col sm="2">
           <b-button block variant="info">Service Ace</b-button>
@@ -56,7 +56,13 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState('game', ['player1', 'player2'])
+    ...mapState('game', ['player1', 'player2']),
+    pointWonPlayer1: function () {
+      return !(this.pointWon === 0 || this.pointWon != 1)
+    },
+    pointWonPlayer2: function () {
+      return !(this.pointWon === 0 || this.pointWon != 2)
+    }
   },
   data: function () {
     return {
@@ -69,6 +75,9 @@ export default {
     ...mapActions([
       'game/pointCount',
     ]),
+    setPointWon: function (player) {
+      this.pointWon = player
+    },
     addPoint: function () {
       this['game/pointCount']({'pointWon': this.pointWon, 'serviceIn': this.serviceIn, 'pointWonDetail': this.pointWonDetail})
       this.pointWon = 0
