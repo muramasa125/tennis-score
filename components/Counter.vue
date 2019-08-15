@@ -13,10 +13,13 @@
       <b-row>Service In</b-row>
       <b-row>
         <b-col sm="3">
-          <b-button block variant="info">First Service In</b-button>
+          <b-button block variant="info" @click="setServiceIn(1)" :disabled="firstServiceIn">First Service In</b-button>
         </b-col>
         <b-col sm="3">
-          <b-button block variant="success">Second Service In</b-button>
+          <b-button block variant="success" @click="setServiceIn(2)" :disabled="secondServiceIn">Second Service In</b-button>
+        </b-col>
+        <b-col sm="3">
+          <b-button block variant="danger" @click="setServiceIn(3)" :disabled="doubleFault">Double Fault</b-button>
         </b-col>
       </b-row>
       <b-row>Point Won Detail</b-row>
@@ -35,9 +38,6 @@
         </b-col>
         <b-col sm="2">
           <b-button block variant="danger">Un Forced Error</b-button>
-        </b-col>
-        <b-col sm="2">
-          <b-button block variant="danger">Double Fault</b-button>
         </b-col>
       </b-row>
       <b-row>-</b-row>
@@ -62,6 +62,15 @@ export default {
     },
     pointWonPlayer2: function () {
       return !(this.pointWon === 0 || this.pointWon != 2)
+    },
+    firstServiceIn: function () {
+      return !(this.serviceIn === 0 || this.serviceIn != 1)
+    },
+    secondServiceIn: function () {
+      return !(this.serviceIn === 0 || this.serviceIn != 2)
+    },
+    doubleFault: function () {
+      return !(this.serviceIn === 0 || this.serviceIn != 3)
     }
   },
   data: function () {
@@ -77,6 +86,13 @@ export default {
     ]),
     setPointWon: function (player) {
       this.pointWon = player
+    },
+    setServiceIn: function (service) {
+      if (this.serviceIn === service) {
+        this.serviceIn = 0
+        return
+      }
+      this.serviceIn = service
     },
     addPoint: function () {
       this['game/pointCount']({'pointWon': this.pointWon, 'serviceIn': this.serviceIn, 'pointWonDetail': this.pointWonDetail})
