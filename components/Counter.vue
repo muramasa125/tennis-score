@@ -24,29 +24,29 @@
       </b-row>
       <b-row>Point Won Detail</b-row>
       <b-row>
-        <b-col sm="2">
-          <b-button block variant="info">Service Ace</b-button>
+        <b-col sm="3">
+          <b-button block variant="info" @click="setPointDetail(1)" :disabled="serviceAce">Service Ace</b-button>
         </b-col>
-        <b-col sm="2">
-          <b-button block variant="success">ForeHand Stroke</b-button>
+        <b-col sm="3">
+          <b-button block variant="success" @click="setPointDetail(2)" :disabled="foreHand">ForeHand Winner</b-button>
         </b-col>
-        <b-col sm="2">
-          <b-button block variant="success">BackHand Stroke</b-button>
+        <b-col sm="3">
+          <b-button block variant="success" @click="setPointDetail(3)" :disabled="backHand">BackHand Winner</b-button>
         </b-col>
-        <b-col sm="2">
-          <b-button block variant="warning">Net Point</b-button>
+        <b-col sm="3">
+          <b-button block variant="warning" @click="setPointDetail(4)" :disabled="netPoint">Net Point</b-button>
         </b-col>
-        <b-col sm="2">
-          <b-button block variant="danger">Un Forced Error</b-button>
+        <b-col sm="3">
+          <b-button block variant="danger" @click="setPointDetail(5)" :disabled="unForcedError">Un Forced Error</b-button>
         </b-col>
       </b-row>
       <b-row>-</b-row>
       <b-row>
         <b-col>
-          <b-button block variant="success" v-on:click="addPoint()">Add Point</b-button>
+          <b-button block variant="success" v-on:click="addPoint()" :disabled="disabledAddPoint">Add Point</b-button>
         </b-col>
         <b-col>
-          <b-button variant="danger">UNDO</b-button>
+          <b-button variant="danger" disabled>UNDO</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -71,13 +71,31 @@ export default {
     },
     doubleFault: function () {
       return !(this.serviceIn === 0 || this.serviceIn != 3)
-    }
+    },
+    serviceAce: function () {
+      return !(this.pointWonDetail === null || this.pointWonDetail != 'ServiceAce') || this.serviceIn === 3
+    },
+    foreHand: function () {
+      return !(this.pointWonDetail === null || this.pointWonDetail != 'ForeHandWinner') || this.serviceIn === 3
+    },
+    backHand: function () {
+      return !(this.pointWonDetail === null || this.pointWonDetail != 'BackHandWinner') || this.serviceIn === 3
+    },
+    netPoint: function () {
+      return !(this.pointWonDetail === null || this.pointWonDetail != 'NetPoint') || this.serviceIn === 3
+    },
+    unForcedError: function () {
+      return !(this.pointWonDetail === null || this.pointWonDetail != 'UnForcedError') || this.serviceIn === 3
+    },
+    disabledAddPoint: function () {
+      return this.pointWon === 0
+    },
   },
   data: function () {
     return {
       pointWon: 0,
       serviceIn: 0,
-      pointWonDetail: 0
+      pointWonDetail: null
     }
   },
   methods: {
@@ -93,12 +111,34 @@ export default {
         return
       }
       this.serviceIn = service
+      if (service === 3) {
+        this.pointWonDetail = null
+      }
+    },
+    setPointDetail: function (detail) {
+      switch (detail) {
+        case 1:
+          this.pointWonDetail = 'ServiceAce'
+          break;
+        case 2:
+          this.pointWonDetail = 'ForeHandWinner'
+          break;
+        case 3:
+          this.pointWonDetail = 'BackHandWinner'
+          break;
+        case 4:
+          this.pointWonDetail = 'NetPoint'
+          break;
+        default:
+          this.pointWonDetail = 'UnForcedError'
+          break;
+      }
     },
     addPoint: function () {
       this['game/pointCount']({'pointWon': this.pointWon, 'serviceIn': this.serviceIn, 'pointWonDetail': this.pointWonDetail})
       this.pointWon = 0
       this.serviceIn = 0
-      this.pointWonDetail = 0
+      this.pointWonDetail = null
     }
   }
 }

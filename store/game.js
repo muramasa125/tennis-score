@@ -16,6 +16,7 @@ export const mutations = {
     state.set = set
     state.game = game
     state.ad = ad
+    state.points = []
   },
   pointCount(state, point) {
     point['id'] = state.pointCounter
